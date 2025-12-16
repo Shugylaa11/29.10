@@ -1,4 +1,371 @@
-# Final Task Webpage
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Final Task - Weekly Tasks & Student Profile</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#111a2e;
+      --muted:#98a2b3;
+      --text:#e6e8ee;
+      --accent:#7c5cff;
+      --accent2:#22c55e;
+      --border:rgba(255,255,255,.08);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1000px 600px at 10% 10%, rgba(124,92,255,.18), transparent 60%),
+                  radial-gradient(900px 600px at 90% 20%, rgba(34,197,94,.12), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.5;
+    }
+    a{color:inherit}
+    header{
+      padding:28px 16px 14px;
+      position:sticky;
+      top:0;
+      background: linear-gradient(to bottom, rgba(11,18,32,.95), rgba(11,18,32,.65));
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--border);
+      z-index:10;
+    }
+    .container{max-width:1100px;margin:0 auto;padding:0 16px}
+    .top{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .title h1{margin:0;font-size:20px;letter-spacing:.2px}
+    .title p{margin:4px 0 0;color:var(--muted);font-size:13px}
+    nav{
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    nav button{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      padding:8px 10px;
+      border-radius:999px;
+      cursor:pointer;
+      transition:.2s;
+      font-size:13px;
+    }
+    nav button:hover{transform:translateY(-1px);border-color:rgba(124,92,255,.5)}
+    main{padding:18px 0 60px}
+    .grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:14px;
+    }
+    @media (max-width: 900px){
+      .grid{grid-template-columns:1fr}
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow: var(--shadow);
+      padding:16px;
+    }
+    .card h2{margin:0 0 10px;font-size:16px}
+    .card h3{margin:14px 0 8px;font-size:14px;color:rgba(255,255,255,.92)}
+    .muted{color:var(--muted)}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(124,92,255,.10);
+      font-size:12px;
+      margin:6px 6px 0 0;
+    }
+    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .split{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 560px){.split{grid-template-columns:1fr}}
+    .label{font-size:12px;color:var(--muted);margin-bottom:4px}
+    input, textarea, select{
+      width:100%;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.20);
+      color:var(--text);
+      outline:none;
+    }
+    textarea{min-height:90px;resize:vertical}
+    .btn{
+      border:1px solid rgba(124,92,255,.55);
+      background: rgba(124,92,255,.18);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      transition:.2s;
+      font-weight:600;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn2{
+      border:1px solid rgba(34,197,94,.55);
+      background: rgba(34,197,94,.14);
+    }
+    .danger{
+      border:1px solid rgba(239,68,68,.55);
+      background: rgba(239,68,68,.12);
+    }
+    .list{
+      display:flex; flex-direction:column; gap:10px; margin-top:10px;
+    }
+    .item{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:12px;
+      background: rgba(255,255,255,.02);
+    }
+    .item .meta{font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+    .item ul{margin:8px 0 0 18px}
+    .code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size:12px;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.25);
+      overflow:auto;
+      white-space:pre;
+    }
+    footer{
+      padding:20px 0;
+      color:var(--muted);
+      font-size:12px;
+      border-top:1px solid var(--border);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container top">
+      <div class="title">
+        <h1>Final Task Webpage</h1>
+        <p>Student Profile + README + Weekly Tasks (Combined)</p>
+      </div>
+      <nav>
+        <button onclick="scrollToId('profile')">Profile</button>
+        <button onclick="scrollToId('weekly')">Weekly Tasks</button>
+        <button onclick="scrollToId('combined')">Combined 2 Tasks</button>
+        <button onclick="scrollToId('task0511')">05-11-2025 Task</button>
+        <button onclick="scrollToId('readme')">README</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="grid">
+      <!-- LEFT -->
+      <section class="card" id="profile">
+        <h2>Student Profile</h2>
+        <p class="muted">Edit the fields below with your real data, then commit to GitHub.</p>
+
+        <div class="split">
+          <div>
+            <div class="label">Full Name</div>
+            <input id="fullName" value="Aizhan Bolatkhan" />
+          </div>
+          <div>
+            <div class="label">Group / Course</div>
+            <input id="group" value="Introduction to HTML, CSS & JavaScript" />
+          </div>
+          <div>
+            <div class="label">University</div>
+            <input id="uni" value="ISMA (Riga, Latvia)" />
+          </div>
+          <div>
+            <div class="label">GitHub</div>
+            <input id="github" value="https://github.com/Aizhan1805" />
+          </div>
+        </div>
+
+        <h3>About Me</h3>
+        <textarea id="about">I am a student learning HTML, CSS, and JavaScript. I created this page to present my weekly homework tasks, my profile, and mini projects in one clean webpage.</textarea>
+
+        <div class="row">
+          <span class="pill">HTML</span>
+          <span class="pill">CSS</span>
+          <span class="pill">JavaScript</span>
+          <span class="pill">GitHub Pages</span>
+        </div>
+
+        <div class="row" style="margin-top:12px">
+          <button class="btn btn2" onclick="saveProfile()">Save Profile (localStorage)</button>
+          <button class="btn danger" onclick="resetProfile()">Reset</button>
+        </div>
+
+        <p class="muted" style="margin-top:10px">
+          Tip: Saving profile uses your browser storage only (works offline).
+        </p>
+      </section>
+
+      <!-- RIGHT -->
+      <aside class="card">
+        <h2>Quick Checklist</h2>
+        <div class="list">
+          <div class="item">
+            <div class="meta"><b>Repo 1:</b> “Final Task”</div>
+            <ul>
+              <li>Upload <b>index.html</b></li>
+              <li>Upload <b>README.md</b></li>
+              <li>Enable <b>GitHub Pages</b></li>
+            </ul>
+          </div>
+
+          <div class="item">
+            <div class="meta"><b>Repo 2:</b> “29_01_25_Task”</div>
+            <ul>
+              <li>Create new repo</li>
+              <li>Add task (05-11-2025) page (this file or separate)</li>
+              <li>Commit & publish</li>
+            </ul>
+          </div>
+
+          <div class="item">
+            <div class="meta"><b>How to Publish:</b></div>
+            <ul>
+              <li>Settings → Pages</li>
+              <li>Branch: <b>main</b>, folder: <b>/root</b></li>
+              <li>Save → open your link</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <section class="card" id="weekly" style="margin-top:14px">
+      <h2>Weekly Tasks & Activities</h2>
+      <p class="muted">All tasks collected in one place (organized by dates from your homework).</p>
+
+      <div class="list">
+        <div class="item">
+          <div class="meta"><b>Task 2</b> · <span>15.10.2025</span></div>
+          <ul>
+            <li>Finish and publish previous work to GitHub (from teacher’s file)</li>
+            <li>Complete one task from the class allocation (choose 2/3/4 if unsure)</li>
+            <li>Prepare my own profile (sample) and upload to GitHub</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="meta"><b>Task for 29.10.2025</b> · <span>3 tasks</span></div>
+          <ul>
+            <li><b>New:</b> Combine previous tasks into <b>one webpage</b></li>
+            <li>Include: Student profile, README file content, and “combined 2 tasks” mini section</li>
+            <li>Publish in GitHub repository (Final Task)</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="meta"><b>Task for 05-11-2025</b> · <span>3 tasks</span></div>
+          <ul>
+            <li>Create new GitHub repo: <b>29_01_25_Task</b></li>
+            <li>Do one task from the teacher’s PDF (Drive link)</li>
+            <li>Upload files and publish (GitHub Pages if required)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="combined" style="margin-top:14px">
+      <h2>Combined 2 Tasks (Mini Features)</h2>
+      <p class="muted">
+        This section shows two small tasks combined in one page:
+        <b>(1) To-do list</b> + <b>(2) simple calculator</b>.
+      </p>
+
+      <div class="split">
+        <!-- To-do -->
+        <div class="card" style="padding:14px">
+          <h3 style="margin-top:0">1) To-do List</h3>
+          <div class="label">New task</div>
+          <input id="todoInput" placeholder="Write a task and press Add" />
+          <div class="row" style="margin-top:10px">
+            <button class="btn btn2" onclick="addTodo()">Add</button>
+            <button class="btn danger" onclick="clearTodos()">Clear All</button>
+          </div>
+          <div id="todoList" class="list"></div>
+        </div>
+
+        <!-- Calculator -->
+        <div class="card" style="padding:14px">
+          <h3 style="margin-top:0">2) Calculator</h3>
+          <div class="split">
+            <div>
+              <div class="label">Number A</div>
+              <input id="a" type="number" value="10" />
+            </div>
+            <div>
+              <div class="label">Number B</div>
+              <input id="b" type="number" value="5" />
+            </div>
+          </div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn" onclick="calc('+')">+</button>
+            <button class="btn" onclick="calc('-')">-</button>
+            <button class="btn" onclick="calc('*')">*</button>
+            <button class="btn" onclick="calc('/')">/</button>
+          </div>
+          <p class="muted" style="margin-top:10px">Result:</p>
+          <div class="code" id="result">Click an operation.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="task0511" style="margin-top:14px">
+      <h2>05-11-2025 Task (Selected Task Implementation)</h2>
+      <p class="muted">
+        Because I can’t open the Drive PDF (needs login), I selected a very common HTML/CSS/JS homework task:
+        <b>“Registration Form with Validation + save to localStorage”</b>.
+        If your teacher’s PDF task is different, just send the task title and I will replace this block.
+      </p>
+
+      <div class="split">
+        <div>
+          <h3 style="margin-top:0">Registration Form</h3>
+          <div class="label">Name</div>
+          <input id="regName" placeholder="Your name" />
+
+          <div class="label" style="margin-top:8px">Email</div>
+          <input id="regEmail" placeholder="example@mail.com" />
+
+          <div class="label" style="margin-top:8px">Password</div>
+          <input id="regPass" type="password" placeholder="Min 6 characters" />
+
+          <div class="row" style="margin-top:10px">
+            <button class="btn btn2" onclick="submitRegistration()">Submit</button>
+            <button class="btn danger" onclick="clearRegistrations()">Clear Saved</button>
+          </div>
+
+          <p class="muted" id="regMsg" style="margin-top:10px"></p>
+        </div>
+
+        <div>
+          <h3 style="margin-top:0">Saved Users</h3>
+          <div id="savedUsers" class="list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="readme" style="margin-top:14px">
+      <h2>README (copy to README.md)</h2>
+      <p class="muted">Copy this text into a file named <b>README.md</b> in your GitHub repo.</p>
+
+      <div class="code" id="readmeText"># Final Task Webpage
 
 This repository contains a single webpage (index.html) that combines:
 - Student Profile
@@ -17,5 +384,184 @@ This repository contains a single webpage (index.html) that combines:
    - Settings → Pages → Deploy from branch → main → /root
 
 ## Author
-Aizhan Bolatkhan  
+Aizhan Bolatkhan
 GitHub: https://github.com/Aizhan1805
+</div>
+
+      <div class="row" style="margin-top:10px">
+        <button class="btn" onclick="copyReadme()">Copy README</button>
+      </div>
+    </section>
+
+    <footer class="container">
+      <div>Made for the course: Introduction to HTML, CSS & JavaScript · 2025</div>
+    </footer>
+  </main>
+
+  <script>
+    function scrollToId(id){
+      document.getElementById(id).scrollIntoView({behavior:"smooth", block:"start"});
+    }
+
+    // ---------- Profile storage ----------
+    const profileKeys = ["fullName","group","uni","github","about"];
+    function saveProfile(){
+      profileKeys.forEach(k => localStorage.setItem("profile_"+k, document.getElementById(k).value));
+      alert("Profile saved!");
+    }
+    function loadProfile(){
+      profileKeys.forEach(k => {
+        const val = localStorage.getItem("profile_"+k);
+        if(val !== null) document.getElementById(k).value = val;
+      });
+    }
+    function resetProfile(){
+      profileKeys.forEach(k => localStorage.removeItem("profile_"+k));
+      location.reload();
+    }
+
+    // ---------- To-do list ----------
+    let todos = JSON.parse(localStorage.getItem("todos") || "[]");
+
+    function renderTodos(){
+      const el = document.getElementById("todoList");
+      el.innerHTML = "";
+      if(todos.length === 0){
+        el.innerHTML = '<div class="item"><div class="meta">No tasks yet.</div></div>';
+        return;
+      }
+      todos.forEach((t, i) => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <div class="meta"><b>Task #${i+1}</b></div>
+          <div style="margin-top:6px">${escapeHtml(t)}</div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn danger" onclick="deleteTodo(${i})">Delete</button>
+          </div>
+        `;
+        el.appendChild(div);
+      });
+    }
+    function addTodo(){
+      const input = document.getElementById("todoInput");
+      const val = input.value.trim();
+      if(!val) return alert("Write a task first.");
+      todos.push(val);
+      localStorage.setItem("todos", JSON.stringify(todos));
+      input.value = "";
+      renderTodos();
+    }
+    function deleteTodo(i){
+      todos.splice(i,1);
+      localStorage.setItem("todos", JSON.stringify(todos));
+      renderTodos();
+    }
+    function clearTodos(){
+      todos = [];
+      localStorage.removeItem("todos");
+      renderTodos();
+    }
+
+    // ---------- Calculator ----------
+    function calc(op){
+      const a = Number(document.getElementById("a").value);
+      const b = Number(document.getElementById("b").value);
+      let r;
+      if(op === "+") r = a + b;
+      if(op === "-") r = a - b;
+      if(op === "*") r = a * b;
+      if(op === "/") r = (b === 0) ? "Error: division by zero" : (a / b);
+      document.getElementById("result").textContent = `A ${op} B = ${r}`;
+    }
+
+    // ---------- Registration Task (05-11-2025) ----------
+    function getUsers(){
+      return JSON.parse(localStorage.getItem("registered_users") || "[]");
+    }
+    function setUsers(users){
+      localStorage.setItem("registered_users", JSON.stringify(users));
+    }
+    function renderUsers(){
+      const users = getUsers();
+      const el = document.getElementById("savedUsers");
+      el.innerHTML = "";
+      if(users.length === 0){
+        el.innerHTML = '<div class="item"><div class="meta">No saved users.</div></div>';
+        return;
+      }
+      users.forEach((u, i) => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <div class="meta"><b>User #${i+1}</b></div>
+          <div style="margin-top:6px"><b>Name:</b> ${escapeHtml(u.name)}</div>
+          <div><b>Email:</b> ${escapeHtml(u.email)}</div>
+        `;
+        el.appendChild(div);
+      });
+    }
+
+    function submitRegistration(){
+      const name = document.getElementById("regName").value.trim();
+      const email = document.getElementById("regEmail").value.trim();
+      const pass = document.getElementById("regPass").value;
+
+      const msg = document.getElementById("regMsg");
+      msg.textContent = "";
+
+      if(name.length < 2){
+        msg.textContent = "Name must be at least 2 characters.";
+        return;
+      }
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+        msg.textContent = "Please enter a valid email.";
+        return;
+      }
+      if(pass.length < 6){
+        msg.textContent = "Password must be at least 6 characters.";
+        return;
+      }
+
+      const users = getUsers();
+      users.push({name, email, createdAt: new Date().toISOString()});
+      setUsers(users);
+
+      document.getElementById("regName").value = "";
+      document.getElementById("regEmail").value = "";
+      document.getElementById("regPass").value = "";
+
+      msg.textContent = "Saved successfully!";
+      renderUsers();
+    }
+
+    function clearRegistrations(){
+      localStorage.removeItem("registered_users");
+      document.getElementById("regMsg").textContent = "Saved list cleared.";
+      renderUsers();
+    }
+
+    // ---------- README copy ----------
+    async function copyReadme(){
+      const text = document.getElementById("readmeText").textContent;
+      try{
+        await navigator.clipboard.writeText(text);
+        alert("README copied!");
+      }catch(e){
+        alert("Copy failed. Please select and copy manually.");
+      }
+    }
+
+    function escapeHtml(str){
+      return str.replace(/[&<>"']/g, (m) => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+      }[m]));
+    }
+
+    // init
+    loadProfile();
+    renderTodos();
+    renderUsers();
+  </script>
+</body>
+</html>
